@@ -28,8 +28,25 @@ const { isLogIn, setLogIn } = useContext(MyContext);
 
 ### Local State management
 
-- `useState()`
+- Custom Hooks for handling input element
 
 ```javascript
-const [email, setEmail] = useState("");
+// useHandlingInput.js
+const useHandleInput = initialValue => {
+  const [input, setInput] = useState(initialValue);
+
+  return [input, setInput];
+};
+
+// Login.js
+const [email, setEmail] = useHandleInput("");
+
+return (
+  <input
+    type="text"
+    name="email"
+    value={email}
+    onChange={e => setEmail(e.target.value)}
+  />
+);
 ```
