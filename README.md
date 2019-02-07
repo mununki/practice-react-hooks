@@ -1,6 +1,6 @@
 # Practice of using the React Hooks
 
-## This is a tiny example using the React Hooks for managing local state and global state between components
+This is a tiny example using the React Hooks for managing local state and global state between components
 
 ### Global State management
 
