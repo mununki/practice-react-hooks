@@ -14,7 +14,7 @@ const LogIn = () => {
   return (
     <div>
       {isLogIn ? (
-        <div>You're Logged In</div>
+        <div>You are Logged In</div>
       ) : (
         <>
           <div>{email}</div>
