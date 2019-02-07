@@ -11,6 +11,8 @@ This is a tiny example using the React Hooks for managing local state and global
 const MyContext = React.createContext();
 
 // App.js
+const initValue = { isLogIn, setLogIn };
+
 return (
   <MyContext.Provider value={initValue}>
     <Header />
@@ -19,7 +21,7 @@ return (
 );
 ```
 
-- `useContext(MyContext)`
+- `useContext(MyContext)` enables to use the context in any component
 
 ```javascript
 // Header.js
@@ -31,7 +33,7 @@ const { isLogIn, setLogIn } = useContext(MyContext);
 - Custom Hooks for handling input element
 
 ```javascript
-// useHandlingInput.js
+// useHandleInput.js
 const useHandleInput = initialValue => {
   const [input, setInput] = useState(initialValue);
 
