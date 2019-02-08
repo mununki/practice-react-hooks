@@ -1,11 +1,40 @@
-# Practice of using the React Hooks
+# Practice of using the React Hooks - Hookux!
 
-This is a tiny example using the React Hooks for managing local state and global state between components
+This is a tiny example using the React Hooks working like Redux Reducers
 
-- global state management with `useContext` combining `useState` hooks
-- custom hooks to exract the reusable state logic
+- `useHookux()` is matching redux store and reducers
+- global state management with `useContext`
+- custom hooks to exract the reusable state logic - `useHandleInput()`
 
-### Global State management
+### Hookux
+
+- `useHookux()`
+
+```javascript
+const useHookus = () => {
+  // set initial values
+  const [isLogIn, setLogIn] = useState(false);
+  const [token, setToken] = useState("");
+
+  // set reducer
+  const reducer = (dispatch, value) => {
+    switch (dispatch) {
+      case "setLogIn":
+        setLogIn(value);
+        break;
+      case "setToken":
+        setToken(value);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const value = { isLogIn, token, reducer };
+
+  return value;
+};
+```
 
 - Using React.Context API
 
@@ -14,12 +43,10 @@ This is a tiny example using the React Hooks for managing local state and global
 const MyContext = React.createContext();
 
 // App.js
-const [isLogIn, setLogIn] = useState(false);
-
-const initValue = { isLogIn, setLogIn };
+const value = useHookus();
 
 return (
-  <MyContext.Provider value={initValue}>
+  <MyContext.Provider value={value}>
     <Header />
     <LogIn />
   </MyContext.Provider>
@@ -30,7 +57,7 @@ return (
 
 ```javascript
 // Header.js
-const { isLogIn, setLogIn } = useContext(MyContext);
+const { isLogIn, token, reducer } = useContext(MyContext);
 ```
 
 ### Local State management

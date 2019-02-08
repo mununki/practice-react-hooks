@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import MyContext from "../lib/MyContext";
 
 const Header = () => {
-  const { isLogIn, setLogIn } = useContext(MyContext);
+  const { isLogIn, token, reducer } = useContext(MyContext);
 
   const handleLogOut = () => {
-    setLogIn(false);
+    reducer("setLogIn", false);
   };
 
   return (

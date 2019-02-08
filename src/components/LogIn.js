@@ -3,12 +3,12 @@ import MyContext from "../lib/MyContext";
 import useHandleInput from "../utils/useHandleInput";
 
 const LogIn = () => {
-  const { isLogIn, setLogIn } = useContext(MyContext);
+  const { isLogIn, token, reducer } = useContext(MyContext);
   const [email, setEmail] = useHandleInput("");
   const [password, setPassword] = useHandleInput("");
 
   const handleLogin = () => {
-    setLogIn(true);
+    reducer("setLogIn", true);
   };
 
   return (
