@@ -2,6 +2,9 @@
 
 This is a tiny example using the React Hooks for managing local state and global state between components
 
+- global state management with `useContext` combining `useState` hooks
+- custom hooks to exract the reusable state logic
+
 ### Global State management
 
 - Using React.Context API
@@ -11,6 +14,8 @@ This is a tiny example using the React Hooks for managing local state and global
 const MyContext = React.createContext();
 
 // App.js
+const [isLogIn, setLogIn] = useState(false);
+
 const initValue = { isLogIn, setLogIn };
 
 return (
@@ -21,7 +26,7 @@ return (
 );
 ```
 
-- `useContext(MyContext)` enables to use the context in any component
+- `useContext(MyContext)` enables to use the context in any other components
 
 ```javascript
 // Header.js

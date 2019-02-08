@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import useHandleInput from "../utils/useHandleInput";
 import MyContext from "../lib/MyContext";
+import useHandleInput from "../utils/useHandleInput";
 
 const LogIn = () => {
   const { isLogIn, setLogIn } = useContext(MyContext);
