@@ -2,7 +2,8 @@
 
 This is a tiny example using the React Hooks working like Redux Reducers
 
-- `useHoodux()` is matching redux store and reducers
+- `useHoodux()` is matching redux store and reducers with `useState()` + `useContext()`
+- `useReducer()` use case
 - global state management with `useContext`
 - custom hooks to exract the reusable state logic - `useHandleInput()`
 
