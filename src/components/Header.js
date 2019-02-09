@@ -1,15 +1,18 @@
 import React, { useContext } from "react";
 import MyContext from "../lib/MyContext";
+import "../static/global.css";
 
 const Header = () => {
-  const { isLogIn, token, reducer } = useContext(MyContext);
+  const { isLogIn, token, reducer, state, dispatch } = useContext(MyContext);
 
   const handleLogOut = () => {
     reducer("setLogIn", false);
   };
 
   return (
-    <div>
+    <div className="header-container">
+      <span>Hoodux</span>
+      <span>{state.token}</span>
       {isLogIn ? (
         <button onClick={handleLogOut}>Log Out</button>
       ) : (

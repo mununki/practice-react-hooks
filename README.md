@@ -1,17 +1,17 @@
-# Practice of using the React Hooks - Hookux!
+# Practice of using the React Hooks - Hoodux!
 
 This is a tiny example using the React Hooks working like Redux Reducers
 
-- `useHookux()` is matching redux store and reducers
+- `useHoodux()` is matching redux store and reducers
 - global state management with `useContext`
 - custom hooks to exract the reusable state logic - `useHandleInput()`
 
-### Hookux
+### Global State management
 
-- `useHookux()`
+- Hoodux - `useHoodux()`
 
 ```javascript
-const useHookus = () => {
+const useHoodux = () => {
   // set initial values
   const [isLogIn, setLogIn] = useState(false);
   const [token, setToken] = useState("");
@@ -36,6 +36,26 @@ const useHookus = () => {
 };
 ```
 
+- `useReducer()` takes reducer type `(state, action) => newState` and returns `state` and `dispatch`
+
+```javascript
+const initValue = {
+  isLogin: false,
+  token: ""
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "setLogin":
+      return { isLogin: action.payload };
+    case "setToken":
+      return { token: action.payload };
+    default:
+      throw new Error("wrong action.type");
+  }
+};
+```
+
 - Using React.Context API
 
 ```javascript
@@ -43,10 +63,11 @@ const useHookus = () => {
 const MyContext = React.createContext();
 
 // App.js
-const value = useHookus();
+const value = useHoodux();
+const [state, dispatch] = useReducer(reducer, initValue);
 
 return (
-  <MyContext.Provider value={value}>
+  <MyContext.Provider value={{ ...value, state, dispatch }}>
     <Header />
     <LogIn />
   </MyContext.Provider>
@@ -56,8 +77,8 @@ return (
 - `useContext(MyContext)` enables to use the context in any other components
 
 ```javascript
-// Header.js
-const { isLogIn, token, reducer } = useContext(MyContext);
+// Header.js, Login.js
+const { isLogIn, token, reducer, state, dispatch } = useContext(MyContext);
 ```
 
 ### Local State management
