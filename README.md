@@ -1,45 +1,17 @@
-# Practice of using the React Hooks - Hoodux!
+# Practice of the React Hooks - How to replace the React Reduxt
 
-This is a tiny example using the React Hooks working like Redux Reducers
+This is a tiny example using the React Hooks working like React Redux.
 
-- `useHoodux()` is matching redux store and reducers with `useState()` + `useContext()`
-- `useReducer()` use case
-- global state management with `useContext`
-- custom hooks to exract the reusable state logic - `useHandleInput()`
+1. `useHoodux()` = `useState()` + `useContext()`
+2. `useReducer()`
 
-### Global State management
+## How to replace the Redux with React Hooks
 
-- Hoodux - `useHoodux()`
+### Create the store (initValue + reducer)
 
 ```javascript
-const useHoodux = () => {
-  // set initial values
-  const [isLogIn, setLogIn] = useState(false);
-  const [token, setToken] = useState("");
+// App.js
 
-  // set reducer
-  const reducer = (dispatch, value) => {
-    switch (dispatch) {
-      case "setLogIn":
-        setLogIn(value);
-        break;
-      case "setToken":
-        setToken(value);
-        break;
-      default:
-        break;
-    }
-  };
-
-  const value = { isLogIn, token, reducer };
-
-  return value;
-};
-```
-
-- `useReducer()` takes reducer type `(state, action) => newState` and returns `state` and `dispatch`
-
-```javascript
 const initValue = {
   isLogin: false,
   token: ""
@@ -57,52 +29,41 @@ const reducer = (state, action) => {
 };
 ```
 
-- Using React.Context API
+### Wrap the top level component(eg. App.js) with Context
 
 ```javascript
-// MyContext.js
+// App.js
+
 const MyContext = React.createContext();
 
-// App.js
-const value = useHoodux();
-const [state, dispatch] = useReducer(reducer, initValue);
+const App = () => {
+  const [state, dispatch] = useReducer(reducer, initValue);
 
-return (
-  <MyContext.Provider value={{ ...value, state, dispatch }}>
-    <Header />
-    <LogIn />
-  </MyContext.Provider>
-);
+  return (
+    <MyContext.Provider value={{ state, dispatch }}>
+      <Header />
+      <LogIn />
+    </MyContext.Provider>
+  );
+};
 ```
 
-- `useContext(MyContext)` enables to use the context in any other components
+> You can use the context wrapper component in higher order if you like.
+
+### Pull and use `state` and `dispatch`
 
 ```javascript
-// Header.js, Login.js
-const { isLogIn, token, reducer, state, dispatch } = useContext(MyContext);
-```
+// Login.js
 
-### Local State management
+const { state, dispatch } = useContext(MyContext);
 
-- Custom Hooks for handling input element
-
-```javascript
-// useHandleInput.js
-const useHandleInput = initialValue => {
-  const [input, setInput] = useState(initialValue);
-
-  return [input, setInput];
+const handleLogin = () => {
+  dispatch({ type: "setLogin", payload: true });
 };
 
-// Login.js
-const [email, setEmail] = useHandleInput("");
-
-return (
-  <input
-    type="text"
-    name="email"
-    value={email}
-    onChange={e => setEmail(e.target.value)}
-  />
-);
+return <div>{state.isLogin ? "You are logged in" : "Not logged in"}</div>;
 ```
+
+## Conclusion
+
+`useReducer` make a lot easier to pull and use the `state` and `dispatch` instead of using `connect()` in React Redux. If you're familiar with it, you know how it works. In React Redux,every single component, you want to use `state` or `dispatch`, needs to be connected. But with `useReducer`, you need to call it just once in component if you want it to be.
