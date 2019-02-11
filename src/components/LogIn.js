@@ -28,18 +28,13 @@ const LogIn = () => {
             <div>{state.token}</div>
           </div>
           <label htmlFor="email">E-mail</label>
-          <input
-            type="text"
-            name="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
+          <input type="text" name="email" value={email} onChange={setEmail} />
           <label htmlFor="email">Password</label>
           <input
             type="password"
             name="password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={setPassword}
           />
           <button onClick={handleLogin}>Log In</button>
           <button onClick={handleTokenUseReducer}>Set the token</button>
