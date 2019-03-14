@@ -5,8 +5,8 @@ import "../static/global.css";
 
 const LogIn = () => {
   const { isLogIn, token, reducer, state, dispatch } = useContext(MyContext);
-  const [email, setEmail] = useHandleInput("");
-  const [password, setPassword] = useHandleInput("");
+  const email = useHandleInput("");
+  const password = useHandleInput("");
 
   const handleLogin = () => {
     reducer("setLogIn", true);
@@ -23,19 +23,14 @@ const LogIn = () => {
       ) : (
         <>
           <div className="typed-value-container">
-            <div>{email}</div>
-            <div>{password}</div>
+            <div>{email.value}</div>
+            <div>{password.value}</div>
             <div>{state.token}</div>
           </div>
           <label htmlFor="email">E-mail</label>
-          <input type="text" name="email" value={email} onChange={setEmail} />
+          <input type="text" name="email" {...email} />
           <label htmlFor="email">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={setPassword}
-          />
+          <input type="password" name="password" {...password} />
           <button onClick={handleLogin}>Log In</button>
           <button onClick={handleTokenUseReducer}>Set the token</button>
         </>
