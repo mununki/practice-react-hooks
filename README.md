@@ -1,4 +1,4 @@
-# Practice of the React Hooks - How to replace the React Reduxt
+# Practice of the React Hooks - How to replace the React Redux
 
 This is a tiny example using the React Hooks working like React Redux.
 
